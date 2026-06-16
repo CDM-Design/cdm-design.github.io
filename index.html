@@ -1,90 +1,453 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <title>Christian Michaud | Graphic Design Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Graphic design portfolio of Christian Michaud — typography, illustration, and editorial design.">
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg: #f6f6f4;
-    --text: #111;
-    --muted: #666;
+    --paper: #FAF7F0;
+    --ink: #15151A;
+    --muted: #6b6862;
+    --vermilion: #FF4B1F;
+    --yolk: #FFC857;
+    --indigo: #2C2A4A;
+    --line: rgba(21,21,26,0.12);
 }
 
 * { box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
 }
 
-header {
-    padding: 80px 20px 60px;
-    text-align: center;
+a { color: inherit; }
+
+/* ---------- SKIP LINK ---------- */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 18px;
+    z-index: 1000;
+}
+.skip-link:focus {
+    left: 10px;
+    top: 10px;
 }
 
-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
+/* ---------- TOP BAR ---------- */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 40px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    animation: riseIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.topbar .mark {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.topbar nav a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    text-decoration: none;
+    margin-left: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.topbar nav a:hover,
+.topbar nav a:focus-visible {
+    border-color: var(--vermilion);
+}
+
+/* ---------- KEYFRAMES ---------- */
+@keyframes riseIn {
+    from { opacity: 0; transform: translateY(36px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lineReveal {
+    from { opacity: 0; transform: translateY(60%) rotate(1.2deg); }
+    to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes tabDrop {
+    0%   { opacity: 0; transform: translateY(-18px) scaleX(0.7); }
+    60%  { opacity: 1; transform: translateY(3px) scaleX(1.02); }
+    100% { opacity: 1; transform: translateY(0) scaleX(1); }
+}
+
+@keyframes frameRise {
+    from { opacity: 0; transform: translateY(28px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes copyFade {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes underlineGrow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    padding: 100px 40px 70px;
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hero .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--vermilion);
+    display: inline-block;
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: riseIn 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+}
+
+.hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(3.2rem, 11vw, 8.5rem);
+    line-height: 0.92;
+    margin: 0;
+    letter-spacing: -0.02em;
+    overflow: hidden;
+}
+
+.hero h1 .line {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(60%) rotate(1.2deg);
+    animation: lineReveal 0.85s cubic-bezier(0.16,1,0.3,1) forwards;
+    transform-origin: left bottom;
+}
+
+.hero h1 .line:nth-of-type(1) { animation-delay: 0.25s; }
+.hero h1 .line:nth-of-type(2) { animation-delay: 0.4s; }
+.hero h1 .line:nth-of-type(3) { animation-delay: 0.55s; }
+
+.hero h1 .accent {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--vermilion);
+}
+
+.hero .role {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    animation: riseIn 0.7s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+}
+
+.hero .role .name {
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s ease;
+}
+
+.hero .role .name:hover {
+    transform: translateY(-3px) rotate(-1deg);
+    background: var(--vermilion);
+}
+
+.hero .role p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin: 0;
+    max-width: 480px;
+    line-height: 1.5;
+}
+
+.hero .role .name {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 14px;
+    border-radius: 3px;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* ---------- SECTION HEADERS ---------- */
+.section-wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 70px 40px;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 50px;
+    gap: 20px;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.section-head.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 2.4rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+    position: relative;
+    display: inline-block;
+}
+
+.year-badge {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--vermilion);
     margin-bottom: 10px;
 }
 
-header p {
+.year-badge.muted {
     color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+}
+
+/* ---------- COMING SOON ---------- */
+.coming-soon {
+    border: 1px dashed var(--line);
+    border-radius: 4px;
+    padding: 70px 30px;
+    text-align: center;
+    background: rgba(21,21,26,0.02);
+}
+
+.coming-soon-mark {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2.4rem;
+    color: var(--line);
+    margin-bottom: 12px;
+}
+
+.coming-soon p {
+    font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
 }
 
-section {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 80px 30px;
+.section-head h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    height: 3px;
+    width: 48px;
+    background: var(--vermilion);
+    transform: scaleX(0);
+    transform-origin: left;
 }
 
-h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 40px;
+.section-head.in-view h2::after {
+    animation: underlineGrow 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
 }
 
+.section-head .count {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ---------- PROJECT GRID ---------- */
 .projects {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 60px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 50px;
 }
 
-.project a {
+.project {
+    position: relative;
+}
+
+.project .tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border-radius: 3px 3px 0 0;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.project.in-view .tab {
+    animation: tabDrop 0.55s cubic-bezier(0.34,1.2,0.64,1) forwards;
+    animation-delay: var(--reveal-delay, 0s);
+}
+
+.project:hover .tab {
+    transform: translateY(-4px) rotate(-1.5deg);
+}
+
+.project:nth-child(3n+1) .tab { background: var(--vermilion); color: var(--paper); }
+.project:nth-child(3n+2) .tab { background: var(--yolk); color: var(--ink); }
+.project:nth-child(3n+3) .tab { background: var(--indigo); color: var(--paper); }
+
+.project a.frame {
     display: block;
     overflow: hidden;
     cursor: pointer;
+    border: 1px solid var(--line);
+    background: #fff;
+    position: relative;
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+
+.project.in-view a.frame {
+    animation: frameRise 0.65s cubic-bezier(0.16,1,0.3,1) forwards;
+    animation-delay: calc(var(--reveal-delay, 0s) + 0.12s);
+}
+
+.project:hover a.frame {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px -16px rgba(21,21,26,0.25);
 }
 
 .project img {
     width: 100%;
     display: block;
-    transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-.project a:hover img {
-    transform: scale(1.06);
-    opacity: 0.9;
-}
-
-.project p {
-    margin-top: 16px;
-    font-size: 0.95rem;
-    color: var(--muted);
-    max-width: 90%;
-}
-
-.project img {
     height: auto;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease;
+}
+
+.project a.frame:hover img,
+.project a.frame:focus-visible img {
+    transform: scale(1.08) rotate(0.4deg);
+}
+
+.project a.frame:focus-visible {
+    outline: 3px solid var(--vermilion);
+    outline-offset: 2px;
+}
+
+.project .multi-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 4px 9px;
+    border-radius: 3px;
+    z-index: 2;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.project:hover .multi-badge {
+    transform: scale(1.08) translateY(-2px);
+}
+
+.project .meta {
+    margin-top: 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    opacity: 0;
+}
+
+.project.in-view .meta {
+    animation: copyFade 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+    animation-delay: calc(var(--reveal-delay, 0s) + 0.28s);
+}
+
+.project .index-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding-top: 2px;
+    flex-shrink: 0;
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), color 0.3s ease;
+}
+
+.project:hover .index-num {
+    transform: translateX(4px);
+    color: var(--vermilion);
+}
+
+.project .copy h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0 0 6px;
+}
+
+.project .copy p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.5;
 }
 
 .project.featured {
@@ -92,17 +455,64 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    .project.featured {
-        grid-column: span 1;
-    }
+    .project.featured { grid-column: span 1; }
+    .section-wrap { padding: 50px 22px; }
+    .hero { padding: 70px 22px 50px; }
+    .topbar { padding: 18px 22px; }
+    .topbar nav a { margin-left: 16px; }
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 40px 40px;
+    margin-top: 40px;
+}
+
+footer .footer-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+footer h2 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2.2rem;
+    margin: 0 0 10px;
+}
+
+footer a.contact-link {
+    color: var(--yolk);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    display: inline-block;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), letter-spacing 0.3s ease;
+}
+
+footer a.contact-link:hover,
+footer a.contact-link:focus-visible {
+    transform: translateX(6px);
+    letter-spacing: 0.02em;
+}
+
+footer .copyright {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(250,247,240,0.5);
 }
 
 /* ---------- LIGHTBOX ---------- */
-
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.95);
+    background: rgba(21,21,26,0.97);
     display: none;
     align-items: center;
     justify-content: center;
@@ -110,9 +520,7 @@ h2 {
     padding: 40px;
 }
 
-.lightbox.active {
-    display: flex;
-}
+.lightbox.active { display: flex; }
 
 .lightbox-content {
     text-align: center;
@@ -122,129 +530,222 @@ h2 {
 
 .lightbox img {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 78vh;
+    border: 1px solid rgba(250,247,240,0.15);
 }
 
 .caption {
-    margin-top: 16px;
-    color: #bbb;
-    font-size: 0.9rem;
+    margin-top: 18px;
+    color: rgba(250,247,240,0.7);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
 }
 
 .close {
     position: absolute;
-    top: 30px;
-    right: 40px;
+    top: 28px;
+    right: 36px;
     font-size: 2rem;
-    color: #fff;
+    color: var(--paper);
     cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
 }
+
+.close:focus-visible { outline: 2px solid var(--vermilion); }
 
 .nav {
     position: absolute;
     top: 50%;
-    font-size: 2.5rem;
-    color: #fff;
+    transform: translateY(-50%);
+    font-size: 2.2rem;
+    color: var(--paper);
     cursor: pointer;
     user-select: none;
     display: none;
+    background: none;
+    border: none;
+    padding: 10px;
 }
 
-.nav.prev { left: 30px; }
-.nav.next { right: 30px; }
+.nav:focus-visible { outline: 2px solid var(--vermilion); }
 
-footer {
-    padding: 40px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--muted);
+.nav.prev { left: 24px; }
+.nav.next { right: 24px; }
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+    }
+    .hero .eyebrow, .hero h1 .line, .hero .role,
+    .topbar, .section-head, .project .tab,
+    .project a.frame, .project .meta {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .section-head h2::after { transform: scaleX(1) !important; }
+}
+
+/* No-JS / pre-observer fallback: never trap content invisible */
+.no-js .project .tab,
+.no-js .project a.frame,
+.no-js .project .meta,
+.no-js .section-head {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
 }
 
 @media (max-width: 768px) {
-    header h1 { font-size: 2.2rem; }
+    .hero h1 { font-size: clamp(2.6rem, 14vw, 4.5rem); }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>Christian Michaud</h1>
-<p>Graphic Design Portfolio</p>
+<a href="#year-1" class="skip-link">Skip to work</a>
+
+<div class="topbar">
+<span class="mark">CHRISTIAN MICHAUD</span>
+<nav>
+<a href="#year-1">Year 1</a>
+<a href="#year-2">Year 2</a>
+<a href="#year-3">Year 3</a>
+<a href="#contact">Contact</a>
+</nav>
+</div>
+
+<header class="hero">
+<span class="eyebrow">Graphic Design — Portfolio 2026</span>
+<h1><span class="line">Design</span><br><span class="line accent">that holds up</span><br><span class="line">close.</span></h1>
+<div class="role">
+<span class="name">Christian Michaud</span>
+<p>Typography, illustration, and editorial layout — built on the same care for hierarchy and craft, project after project.</p>
+</div>
 </header>
 
-<section>
-<h2>Selected Work</h2>
+<section class="section-wrap" id="year-1">
+<div class="section-head">
+<div>
+<span class="year-badge">Year 1 — Complete</span>
+<h2>First-Year Work</h2>
+</div>
+<span class="count">011 Projects</span>
+</div>
 
 <div class="projects">
 
 <div class="project">
-<a onclick="openLightbox(['Project Images/Volcano Poster/Michaud_Christian_VolcanoPoster.jpg'],'Volcano Poster')">
-<img src="Project Images/Volcano Poster/Michaud_Christian_VolcanoPoster.jpg">
+<span class="tab">Plate 01</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/Volcano Poster/Michaud_Christian_VolcanoPoster.jpg'],'Volcano Poster')">
+<img src="Project Images/Volcano Poster/Michaud_Christian_VolcanoPoster.jpg" alt="Informational poster about a volcano, featuring a map and layered typographic hierarchy" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">01</span>
+<div class="copy">
+<h3>Volcano Poster</h3>
 <p>Informational poster and map design focused on hierarchy and typographic clarity.</p>
 </div>
+</div>
+</div>
 
 <div class="project">
-<a onclick="openLightbox(['Project Images/Typography Poster/Michaud_Christian_P4_Final.jpg'],'Typography Poster')">
-<img src="Project Images/Typography Poster/Michaud_Christian_P4_Final.jpg">
+<span class="tab">Plate 02</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/Typography Poster/Michaud_Christian_P4_Final.jpg'],'Typography Poster')">
+<img src="Project Images/Typography Poster/Michaud_Christian_P4_Final.jpg" alt="Type specimen poster showing letterform anatomy and structured layout" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">02</span>
+<div class="copy">
+<h3>Typography Poster</h3>
 <p>Type specimen poster exploring letterform anatomy and layout precision.</p>
 </div>
+</div>
+</div>
 
 <div class="project">
-<a onclick="openLightbox(['Project Images/Playing Cards/Michaud_Christian_Playing_Cards.jpg'],'Playing Cards')">
-<img src="Project Images/Playing Cards/Michaud_Christian_Playing_Cards.jpg">
+<span class="tab">Plate 03</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/Playing Cards/Michaud_Christian_Playing_Cards.jpg'],'Playing Cards')">
+<img src="Project Images/Playing Cards/Michaud_Christian_Playing_Cards.jpg" alt="Custom playing card set with illustrated face cards" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">03</span>
+<div class="copy">
+<h3>Playing Cards</h3>
 <p>Custom playing card set emphasizing illustration and print composition.</p>
 </div>
-
+</div>
 </div>
 
-<h2 style="margin-top:80px;">Other Works</h2>
-
-<div class="projects">
-
 <div class="project">
-<a onclick="openLightbox(['Project Images/P2_Crystal_Goblet_ChristianMichaud.jpg'],'Crystal Goblet')">
-<img src="Project Images/P2_Crystal_Goblet_ChristianMichaud.jpg">
+<span class="tab">Plate 04</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/P2_Crystal_Goblet_ChristianMichaud.jpg'],'Crystal Goblet')">
+<img src="Project Images/P2_Crystal_Goblet_ChristianMichaud.jpg" alt="Detailed rendering of a crystal goblet with transparency and reflections" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">04</span>
+<div class="copy">
+<h3>Crystal Goblet</h3>
 <p>Detailed document focusing on transparency and reflections.</p>
 </div>
+</div>
+</div>
 
 <div class="project">
-<a onclick="openLightbox([
+<span class="tab">Plate 05</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox([
 'Project Images/Michaud_Christian_MonsterBugs_Page_1.jpg',
 'Project Images/Michaud_Christian_MonsterBugs_Page_2.jpg',
 'Project Images/Michaud_Christian_MonsterBugs_Page_3.jpg'
 ],'Monster Bugs')">
-<img src="Project Images/Michaud_Christian_MonsterBugs_Page_1.jpg">
+<img src="Project Images/Michaud_Christian_MonsterBugs_Page_1.jpg" alt="Illustrated character designs of imaginative monster bugs" loading="lazy">
+<span class="multi-badge">3 pages</span>
 </a>
+<div class="meta">
+<span class="index-num">05</span>
+<div class="copy">
+<h3>Monster Bugs</h3>
 <p>Character design project combining imaginative creatures and playful illustration.</p>
+</div>
+</div>
 </div>
 
 <div class="project">
-<a onclick="openLightbox([
-'Project Images/P8_Michaud_Christian.jpg'
-
-],'CCA Seasonal Exhibitions Posters.')">
-<img src="Project Images/P8_Michaud_Christian.jpg">
+<span class="tab">Plate 06</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/P8_Michaud_Christian.jpg'],'CCA Seasonal Exhibitions Posters')">
+<img src="Project Images/P8_Michaud_Christian.jpg" alt="Seasonal exhibition poster with bold typography and dynamic composition" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">06</span>
+<div class="copy">
+<h3>CCA Seasonal Exhibitions Posters</h3>
 <p>Seasonal exhibition posters featuring bold typography and dynamic visual composition to promote cultural events.</p>
+</div>
+</div>
 </div>
 
 <div class="project featured">
-<a onclick="openLightbox([
-'Project Images/Michaud_Christian_P3_Finals.jpg'
-
-],'Explorations of Letterforms and Abstractions')">
-<img src="Project Images/Michaud_Christian_P3_Finals.jpg">
+<span class="tab">Plate 07</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox(['Project Images/Michaud_Christian_P3_Finals.jpg'],'Explorations of Letterforms and Abstractions')">
+<img src="Project Images/Michaud_Christian_P3_Finals.jpg" alt="Abstract geometric composition exploring letterform structure" loading="lazy">
 </a>
+<div class="meta">
+<span class="index-num">07</span>
+<div class="copy">
+<h3>Explorations of Letterforms and Abstractions</h3>
 <p>Abstract explorations of letterform structure and geometric composition, investigating the relationship between form and space.</p>
+</div>
+</div>
 </div>
 
 <div class="project">
-<a onclick="openLightbox([
+<span class="tab">Plate 08</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox([
 'Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_01.jpg',
 'Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_02.jpg',
 'Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_03.jpg',
@@ -262,45 +763,155 @@ footer {
 'Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_15.jpg',
 'Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_16.jpg'
 ],'PLP4 Booklet')">
-<img src="Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_01.jpg">
+<img src="Project Images/PLP4_Booklet/PLP4_Michaud_Christian_Page_01.jpg" alt="Cover page of a multi-page editorial booklet design" loading="lazy">
+<span class="multi-badge">16 pages</span>
 </a>
+<div class="meta">
+<span class="index-num">08</span>
+<div class="copy">
+<h3>PLP4 Booklet</h3>
 <p>Multi-page booklet design showcasing comprehensive layout and editorial design principles.</p>
+</div>
+</div>
+</div>
+
+<div class="project featured">
+<span class="tab">Plate 09</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox([
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_01.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_02.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_03.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_04.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_05.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_06.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_07.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_08.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_09.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_10.jpg',
+'Project Images/typography2/Type_26_Michaud_Christian_P3_Page_11.jpg'
+],'Letters, Glyphs & Expressive Type')">
+<img src="Project Images/typography2/Type_26_Michaud_Christian_P3_Page_01.jpg" alt="Expressive typographic composition exploring letterform and glyph construction" loading="lazy">
+<span class="multi-badge">11 pages</span>
+</a>
+<div class="meta">
+<span class="index-num">09</span>
+<div class="copy">
+<h3>Letters, Glyphs &amp; Expressive Type</h3>
+<p>Conceptual typography project exploring letterform anatomy, glyph construction, and expressive composition through sketching, iteration, and digital refinement.</p>
+</div>
+</div>
+</div>
+
+<div class="project">
+<span class="tab">Plate 10</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox([
+'Project Images/Magic-Crystals-Michaud_Christian-1.jpg',
+'Project Images/Magic-Crystals-Michaud_Christian-(dragged).jpg'
+],'Magic Crystals')">
+<img src="Project Images/Magic-Crystals-Michaud_Christian-1.jpg" alt="Illustrative composition of crystalline forms with light and refraction" loading="lazy">
+<span class="multi-badge">2 pages</span>
+</a>
+<div class="meta">
+<span class="index-num">10</span>
+<div class="copy">
+<h3>Magic Crystals</h3>
+<p>Illustrative composition rendering crystalline forms with attention to light, refraction, and material texture.</p>
+</div>
+</div>
+</div>
+
+<div class="project">
+<span class="tab">Plate 11</span>
+<a class="frame" href="javascript:void(0)" onclick="openLightbox([
+'Project Images/PLP3_Michaud_Christian copy_Page_1.jpg',
+'Project Images/PLP3_Michaud_Christian copy_Page_2.jpg',
+'Project Images/PLP3_Michaud_Christian copy_Page_3.jpg',
+'Project Images/PLP3_Michaud_Christian copy_Page_4.jpg'
+],'PLP3 Booklet')">
+<img src="Project Images/PLP3_Michaud_Christian copy_Page_1.jpg" alt="Cover page of a multi-page booklet exploring editorial layout" loading="lazy">
+<span class="multi-badge">4 pages</span>
+</a>
+<div class="meta">
+<span class="index-num">11</span>
+<div class="copy">
+<h3>PLP3 Booklet</h3>
+<p>Multi-page booklet design exploring layout consistency and editorial pacing across spreads.</p>
+</div>
+</div>
 </div>
 
 </div>
 </section>
 
+<section class="section-wrap" id="year-2">
+<div class="section-head">
+<div>
+<span class="year-badge muted">Year 2 — In Progress</span>
+<h2>Second-Year Work</h2>
+</div>
+<span class="count">000 Projects</span>
+</div>
+
+<div class="coming-soon">
+<span class="coming-soon-mark">—</span>
+<p>Year 2 work will be added here as it's completed.</p>
+</div>
+</section>
+
+<section class="section-wrap" id="year-3">
+<div class="section-head">
+<div>
+<span class="year-badge muted">Year 3 — Not Started</span>
+<h2>Third-Year Work</h2>
+</div>
+<span class="count">000 Projects</span>
+</div>
+
+<div class="coming-soon">
+<span class="coming-soon-mark">—</span>
+<p>Year 3 work will be added here as it's completed.</p>
+</div>
+</section>
+
+<footer id="contact">
+<div class="footer-inner">
+<div>
+<h2>Let's talk.</h2>
+<a class="contact-link" href="mailto:hello@example.com">hello@example.com</a>
+</div>
+<span class="copyright">© 2026 CHRISTIAN MICHAUD — GRAPHIC DESIGN</span>
+</div>
+</footer>
+
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox">
-<span class="close" onclick="closeLightbox()">×</span>
-<span class="nav prev" onclick="prevImage()">‹</span>
-<span class="nav next" onclick="nextImage()">›</span>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Project image viewer">
+<button class="close" onclick="closeLightbox()" aria-label="Close image viewer">×</button>
+<button class="nav prev" onclick="prevImage()" aria-label="Previous image">‹</button>
+<button class="nav next" onclick="nextImage()" aria-label="Next image">›</button>
 
 <div class="lightbox-content">
-<img id="lightbox-img">
+<img id="lightbox-img" alt="">
 <div class="caption" id="lightbox-caption"></div>
 </div>
 </div>
-
-<footer>
-© 2026 Christian Michaud
-</footer>
 
 <script>
 let images = [];
 let current = 0;
 let caption = "";
+let lastFocused = null;
 
 const lightbox = document.getElementById("lightbox");
 const prevBtn = document.querySelector(".nav.prev");
 const nextBtn = document.querySelector(".nav.next");
+const closeBtn = document.querySelector(".close");
 
 function openLightbox(imgs, cap) {
     images = imgs;
     caption = cap;
     current = 0;
+    lastFocused = document.activeElement;
 
-    // Show arrows ONLY if multiple images
     if (images.length > 1) {
         prevBtn.style.display = "block";
         nextBtn.style.display = "block";
@@ -311,14 +922,18 @@ function openLightbox(imgs, cap) {
 
     lightbox.classList.add("active");
     updateLightbox();
+    closeBtn.focus();
 }
 
 function closeLightbox() {
     lightbox.classList.remove("active");
+    if (lastFocused) lastFocused.focus();
 }
 
 function updateLightbox() {
-    document.getElementById("lightbox-img").src = images[current];
+    const img = document.getElementById("lightbox-img");
+    img.src = images[current];
+    img.alt = caption;
     document.getElementById("lightbox-caption").innerText =
         caption + (images.length > 1 ? ` — ${current + 1} / ${images.length}` : "");
 }
@@ -341,8 +956,34 @@ document.addEventListener("keydown", e => {
     if (e.key === "ArrowRight") nextImage();
     if (e.key === "ArrowLeft") prevImage();
 });
+
+// ---------- SCROLL REVEAL ----------
+document.documentElement.classList.remove("no-js");
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (!reduceMotion && "IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".section-head").forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll(".project").forEach((el, i) => {
+        const col = i % 3;
+        el.style.setProperty("--reveal-delay", (col * 0.1) + "s");
+        revealObserver.observe(el);
+    });
+} else {
+    // Reduced motion, or no IntersectionObserver support: show everything immediately
+    document.querySelectorAll(".section-head, .project").forEach(el => el.classList.add("in-view"));
+}
 </script>
 
 </body>
 </html>
-
